@@ -6,6 +6,7 @@ CREATE EXTENSION IF NOT EXISTS "pg_cron";
 CREATE TABLE public.profiles (
   id UUID REFERENCES auth.users (id) ON DELETE CASCADE NOT NULL PRIMARY KEY,
   full_name TEXT,
+  avatar_url TEXT,
   role TEXT CHECK (role IN ('admin', 'manager', 'member')) DEFAULT 'member',
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
@@ -18,6 +19,7 @@ CREATE TABLE public.companies (
   domain TEXT,
   industry TEXT,
   size TEXT,
+  website TEXT,
   owner_id UUID REFERENCES public.profiles (id),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
@@ -56,6 +58,8 @@ CREATE TABLE public.deals (
   contact_id UUID REFERENCES public.contacts (id) ON DELETE SET NULL,
   company_id UUID REFERENCES public.companies (id) ON DELETE SET NULL,
   owner_id UUID REFERENCES public.profiles (id),
+  status TEXT CHECK (status IN ('open', 'won', 'lost')) DEFAULT 'open',
+  close_date TIMESTAMP WITH TIME ZONE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );

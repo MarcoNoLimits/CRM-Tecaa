@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS crm.profiles (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
+ALTER TABLE crm.profiles ADD COLUMN IF NOT EXISTS avatar_url TEXT;
 
 -- 3. Companies Table
 CREATE TABLE IF NOT EXISTS crm.companies (
@@ -34,6 +35,7 @@ CREATE TABLE IF NOT EXISTS crm.companies (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
+ALTER TABLE crm.companies ADD COLUMN IF NOT EXISTS website TEXT;
 
 -- 4. Contacts Table
 CREATE TABLE IF NOT EXISTS crm.contacts (
@@ -59,6 +61,7 @@ CREATE TABLE IF NOT EXISTS crm.pipeline_stages (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
+ALTER TABLE crm.pipeline_stages ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW());
 
 -- 6. Deals Table
 CREATE TABLE IF NOT EXISTS crm.deals (
@@ -74,6 +77,8 @@ CREATE TABLE IF NOT EXISTS crm.deals (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
+ALTER TABLE crm.deals ADD COLUMN IF NOT EXISTS status TEXT CHECK (status IN ('open', 'won', 'lost')) DEFAULT 'open';
+ALTER TABLE crm.deals ADD COLUMN IF NOT EXISTS close_date TIMESTAMP WITH TIME ZONE;
 
 -- 7. Activities Table
 CREATE TABLE IF NOT EXISTS crm.activities (
@@ -91,6 +96,10 @@ CREATE TABLE IF NOT EXISTS crm.activities (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
+ALTER TABLE crm.activities ADD COLUMN IF NOT EXISTS company_id UUID REFERENCES crm.companies (id) ON DELETE CASCADE;
+ALTER TABLE crm.activities ADD COLUMN IF NOT EXISTS owner_id UUID REFERENCES crm.profiles (id);
+ALTER TABLE crm.activities ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP WITH TIME ZONE;
+ALTER TABLE crm.activities ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW());
 
 -- 8. Tasks Table
 CREATE TABLE IF NOT EXISTS crm.tasks (
