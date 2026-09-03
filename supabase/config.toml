@@ -1,0 +1,34 @@
+# Supabase configuration file
+project_id = "local"
+api_schemas = ["public", "graphql_public"]
+db_schemas = ["public", "auth", "pgbouncer"]
+local_development_mode = true
+
+[api]
+enabled = true
+max_body_size = 20
+default_query_timeout = "10s"
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:5173"]
+jwt_secret = "super-secret-jwt-token-with-at-least-32-characters-long"
+jwt_expiry = 3600
+enable_signup = true
+enable_anonymous_signups = false
+mfa_enabled = false
+
+[db]
+port = 5432
+major_version = 15
+
+[studio]
+enabled = true
+port = 3000
+
+[inbucket]
+enabled = true
+smtp_port = 54321
+pop3_port = 55000
+web_port = 54324

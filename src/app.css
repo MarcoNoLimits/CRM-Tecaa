@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Background Hierarchy (luminance stepping) */
+    --color-bg-primary: #08090a;
+    --color-bg-panel: #0f1011;
+    --color-bg-surface: #191a1b;
+    --color-bg-surface-2: #28282c;
+    --color-bg-hover: rgb(255 255 255 / 0.04);
+    --color-bg-active: rgb(255 255 255 / 0.06);
+
+    /* Text */
+    --color-text-primary: #f7f8f8;
+    --color-text-secondary: #d0d6e0;
+    --color-text-tertiary: #8a8f98;
+    --color-text-quaternary: #62666d;
+
+    /* Accent (Indigo-Violet) */
+    --color-accent: #5e6ad2;
+    --color-accent-hover: #828fff;
+    --color-accent-muted: #7170ff;
+
+    /* Borders */
+    --color-border-default: rgb(255 255 255 / 0.08);
+    --color-border-subtle: rgb(255 255 255 / 0.05);
+    --color-border-hover: rgb(255 255 255 / 0.12);
+
+    /* Semantic */
+    --color-success: #27a644;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-full: 9999px;
+  }
+
+  html,
+  body,
+  #root {
+    @apply h-full w-full;
+  }
+
+  body {
+    @apply bg-bg-primary text-text-secondary;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-text-primary font-semibold;
+  }
+
+  a {
+    @apply text-accent hover:text-accent-hover transition-colors;
+  }
+}
+
+@layer components {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
