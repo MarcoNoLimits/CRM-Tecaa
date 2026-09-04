@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from '../components/layout/Sidebar';
 import { Topbar } from '../components/layout/Topbar';
+import { GlobalShell } from '../components/layout/GlobalShell';
 import { useAuth } from '../hooks/use-auth';
 
 export default function Layout() {
@@ -16,6 +17,8 @@ export default function Layout() {
           <Outlet />
         </main>
       </div>
+      {/* Global command palette + all drawers + keyboard shortcuts */}
+      <GlobalShell />
     </div>
   );
 }

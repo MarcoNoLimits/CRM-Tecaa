@@ -3,6 +3,7 @@ import { Phone, Mail, Users, FileText, Plus, type LucideIcon } from 'lucide-reac
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '../../lib/supabase';
 import { Skeleton } from '../../components/ui';
+import { useUIStore } from '../../stores/ui-store';
 import { format, isToday } from 'date-fns';
 import type { ActivityWithRelations } from '../../types/schema';
 
@@ -32,6 +33,7 @@ const TYPE_ICONS: Record<string, LucideIcon> = {
 
 export default function ActivitiesIndex() {
   const [activeType, setActiveType] = useState<ActivityType>('all');
+  const { openDrawer } = useUIStore();
 
   const { data: activities, isLoading, isError } = useQuery({
     queryKey: ['activities', activeType === 'all' ? undefined : activeType],
@@ -60,7 +62,7 @@ export default function ActivitiesIndex() {
           </p>
         </div>
         <button
-          onClick={() => console.log('Log Activity — dialog coming in Phase 8')}
+          onClick={() => openDrawer('activity')}
           className="flex items-center gap-1.5 px-3 py-1.5 bg-accent hover:bg-accent-hover text-white text-sm font-[510] rounded-radius-md transition-colors"
         >
           <Plus size={15} />

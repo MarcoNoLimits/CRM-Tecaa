@@ -333,6 +333,6 @@ _This section is updated as work progresses._
 - [x] Phase 5: Activities Module — Completed (2026-09-03)
 - [x] Phase 6: Tasks Module — Completed (2026-09-03)
 - [x] Phase 7: Dashboard Module — Completed (2026-09-03)
-- [ ] Phase 8: Command Palette & Polish — Pending
+- [x] Phase 8: Command Palette & Polish — Completed (2026-09-04)
 - [x] Phase 9: Settings & Admin — Completed (2026-09-03)
-- [ ] Phase 10: Testing & Hardening — Pending
+- [x] Phase 10: Testing & Hardening — Completed (2026-09-04)

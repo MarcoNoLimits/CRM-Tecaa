@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Users, Search, Plus } from 'lucide-react';
+import { useUIStore } from '../../stores/ui-store';
 import { useContacts } from '../../hooks/use-contacts';
 import { useDebounce } from '../../hooks/use-debounce';
 import { Button, Skeleton } from '../../components/ui';
@@ -45,6 +46,7 @@ export default function ContactsIndex() {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 300);
   const { data: contacts, isLoading, isError, error } = useContacts(debouncedSearch || undefined);
+  const { openDrawer } = useUIStore();
 
   return (
     <div className="p-6 space-y-5">
@@ -59,7 +61,7 @@ export default function ContactsIndex() {
         <Button
           variant="primary"
           size="sm"
-          onClick={() => console.log('New Contact — drawer coming in Phase 8')}
+          onClick={() => openDrawer('contact')}
         >
           <Plus size={16} className="mr-1.5" />
           New Contact

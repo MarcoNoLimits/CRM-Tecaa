@@ -3,10 +3,13 @@ import { Search, LogOut } from 'lucide-react';
 import { Button } from '../ui';
 import { cn } from '../../lib/utils';
 import { useAuth } from '../../hooks/use-auth';
+import { useUIStore } from '../../stores/ui-store';
 
 export function Topbar() {
   const location = useLocation();
   const { user, signOut } = useAuth();
+
+  const { setCommandPaletteOpen } = useUIStore();
 
   const getBreadcrumb = () => {
     const path = location.pathname.split('/').filter(Boolean);
@@ -24,19 +27,23 @@ export function Topbar() {
         </div>
 
         <div className="hidden md:flex flex-1 max-w-xs">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary" size={16} />
-            <input
-              type="text"
-              placeholder="Search (Cmd+K)"
-              className={cn(
-                'w-full pl-9 pr-3 py-2 bg-bg-primary text-text-secondary placeholder:text-text-quaternary',
-                'border border-border-default rounded-radius-md',
-                'focus:outline-none focus:ring-2 focus:ring-accent',
-                'text-sm',
-              )}
-            />
-          </div>
+          <button
+            type="button"
+            onClick={() => setCommandPaletteOpen(true)}
+            className={cn(
+              'w-full flex items-center justify-between pl-3 pr-2 py-1.5 bg-bg-primary text-text-quaternary',
+              'border border-border-default rounded-radius-md hover:border-border-hover transition-colors',
+              'text-sm text-left cursor-pointer',
+            )}
+          >
+            <div className="flex items-center gap-2">
+              <Search size={14} className="text-text-tertiary" />
+              <span>Search CRM…</span>
+            </div>
+            <kbd className="inline-flex items-center px-1.5 py-0.5 rounded border border-border-subtle bg-bg-surface text-[10px] font-mono text-text-quaternary">
+              ⌘K
+            </kbd>
+          </button>
         </div>
       </div>
 

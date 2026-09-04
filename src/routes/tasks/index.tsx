@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CheckSquare, Plus, List, Columns } from 'lucide-react';
 import { useTasks, useToggleTask } from '../../hooks/use-tasks';
+import { useUIStore } from '../../stores/ui-store';
 import { Skeleton } from '../../components/ui';
 import { format, isPast, isToday } from 'date-fns';
 import type { TaskWithAssignee } from '../../types/schema';
@@ -104,6 +105,7 @@ function BoardCard({ task }: { task: TaskWithAssignee }) {
 export default function TasksIndex() {
   const [view, setView] = useState<ViewMode>('list');
   const { data: tasks, isLoading } = useTasks();
+  const { openDrawer } = useUIStore();
 
   const tasksByStatus = (status: TaskWithAssignee['status']) =>
     (tasks ?? []).filter((t) => t.status === status);
@@ -135,7 +137,7 @@ export default function TasksIndex() {
             </button>
           </div>
           <button
-            onClick={() => console.log('New Task — drawer coming in Phase 8')}
+            onClick={() => openDrawer('task')}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-accent hover:bg-accent-hover text-white text-sm font-[510] rounded-radius-md transition-colors"
           >
             <Plus size={15} />

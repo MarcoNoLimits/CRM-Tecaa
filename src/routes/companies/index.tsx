@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Building2, Search, Plus } from 'lucide-react';
+import { useUIStore } from '../../stores/ui-store';
 import { useCompanies } from '../../hooks/use-companies';
 import { useDebounce } from '../../hooks/use-debounce';
 import { Button, Skeleton } from '../../components/ui';
@@ -28,6 +29,7 @@ export default function CompaniesIndex() {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 300);
   const { data: companies, isLoading, isError, error } = useCompanies(debouncedSearch || undefined);
+  const { openDrawer } = useUIStore();
 
   return (
     <div className="p-6 space-y-5">
@@ -42,7 +44,7 @@ export default function CompaniesIndex() {
         <Button
           variant="primary"
           size="sm"
-          onClick={() => console.log('New Company — drawer coming in Phase 8')}
+          onClick={() => openDrawer('company')}
         >
           <Plus size={16} className="mr-1.5" />
           New Company
@@ -124,7 +126,7 @@ export default function CompaniesIndex() {
                     <Button
                       variant="secondary"
                       size="sm"
-                      onClick={() => console.log('New Company — drawer coming in Phase 8')}
+                      onClick={() => openDrawer('company')}
                     >
                       <Plus size={14} className="mr-1.5" />
                       Add your first company

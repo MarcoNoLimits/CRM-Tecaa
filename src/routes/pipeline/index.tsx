@@ -15,6 +15,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../lib/supabase';
 import { Plus, User } from 'lucide-react';
 import { Skeleton } from '../../components/ui';
+import { useUIStore } from '../../stores/ui-store';
 import type { DealWithRelations, PipelineStage } from '../../types/schema';
 
 function formatValue(value: number | null): string {
@@ -108,6 +109,7 @@ function StageColumn({
 export default function PipelineIndex() {
   const queryClient = useQueryClient();
   const [activeDeal, setActiveDeal] = useState<DealWithRelations | null>(null);
+  const { openDrawer } = useUIStore();
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -193,7 +195,7 @@ export default function PipelineIndex() {
           </p>
         </div>
         <button
-          onClick={() => console.log('New Deal — drawer coming in Phase 8')}
+          onClick={() => openDrawer('deal')}
           className="flex items-center gap-1.5 px-3 py-1.5 bg-accent hover:bg-accent-hover text-white text-sm font-[510] rounded-radius-md transition-colors"
         >
           <Plus size={15} />

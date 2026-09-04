@@ -73,7 +73,14 @@ function LoginForm({ onSwitch }: { onSwitch: () => void }) {
       await signIn(values.email, values.password);
       navigate('/dashboard', { replace: true });
     } catch (err) {
-      setServerError(err instanceof Error ? err.message : 'Invalid credentials');
+      const msg = err instanceof Error ? err.message : 'Invalid credentials';
+      if (msg.toLowerCase().includes('failed to fetch')) {
+        setServerError(
+          'Network error: Failed to connect to Supabase. If you are using an ad-blocker (uBlock, Brave Shields, AdGuard), please pause it for localhost:5173, or check your internet/VPN connection.',
+        );
+      } else {
+        setServerError(msg);
+      }
     }
   };
 
